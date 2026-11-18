@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Buddy | Student Portal</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+ font-family:Poppins,Arial,sans-serif;
+ background:#f4f6fc;
+ color:#202744;
+}
+
+.layout{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{
+ width:245px;
+ background:#171b3b;
+ color:white;
+ padding:28px 18px;
+ position:fixed;
+ height:100vh;
+}
+
+.logo{
+ font-size:23px;
+ font-weight:800;
+ margin:0 8px 38px;
+ color:#a5b4fc;
+}
+
+.logo span{color:white}
+
+.menu-title{
+ color:#858baa;
+ font-size:11px;
+ margin:20px 12px 10px;
+ letter-spacing:1px;
+}
+
+.nav{
+ display:block;
+ color:#c7cbea;
+ text-decoration:none;
+ padding:13px 15px;
+ margin:6px 0;
+ border-radius:10px;
+ font-size:13px;
+ cursor:pointer;
+}
+
+.nav:hover,.nav.active{
+ background:#4447a5;
+ color:white;
+}
+
+/* MAIN */
+main{
+ margin-left:245px;
+ width:calc(100% - 245px);
+ padding:30px 35px;
+}
+
+.topbar{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:30px;
+}
+
+.topbar h2{font-size:23px}
+.profile{
+ background:white;
+ padding:10px 16px;
+ border-radius:30px;
+ box-shadow:0 4px 15px #e2e5f0;
+ font-size:13px;
+}
+
+.welcome{
+ background:linear-gradient(120deg,#3730a3,#7375f5);
+ color:white;
+ padding:30px;
+ border-radius:20px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:25px;
+ box-shadow:0 10px 25px #b9bdf5;
+}
+
+.welcome h1{font-size:27px;margin-bottom:8px}
+.welcome p{font-size:13px;color:#e2e5ff}
+.welcome-icon{font-size:65px}
+
+/* STATS */
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:17px;
+ margin-bottom:25px;
+}
+
+.stat{
+ background:white;
+ padding:20px;
+ border-radius:16px;
+ box-shadow:0 4px 18px #e5e8f1;
+ border:1px solid #edf0f7;
+}
+
+.stat-icon{font-size:25px}
+.stat h2{font-size:27px;margin:12px 0 3px}
+.stat p{font-size:12px;color:#858ba1}
+
+.content{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:20px;
+}
+
+.card{
+ background:white;
+ padding:23px;
+ border-radius:17px;
+ box-shadow:0 4px 18px #e5e8f1;
+ margin-bottom:20px;
+}
+
+.card h3{
+ font-size:17px;
+ margin-bottom:17px;
+ color:#292e57;
+}
+
+input{
+ width:100%;
+ padding:12px;
+ margin:7px 0;
+ border:1px solid #e1e5f0;
+ border-radius:9px;
+ font-family:inherit;
+ outline:none;
+}
+
+input:focus{border-color:#6366f1}
+
+button{
+ background:#5149d9;
+ color:white;
+ padding:11px 16px;
+ border:0;
+ border-radius:9px;
+ cursor:pointer;
+ font-family:inherit;
+ font-weight:600;
+ margin-top:7px;
+}
+
+button:hover{background:#3730a3}
+
+.item{
+ background:#f6f7ff;
+ padding:13px;
+ margin:9px 0;
+ border-radius:10px;
+ font-size:13px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:8px;
+ overflow-wrap:anywhere;
+}
+
+.item button{
+ font-size:11px;
+ padding:7px 10px;
+}
+
+.progress{
+ height:10px;
+ background:#e9eaf5;
+ border-radius:20px;
+ overflow:hidden;
+ margin:13px 0;
+}
+
+.bar{
+ height:100%;
+ width:0%;
+ background:linear-gradient(90deg,#6366f1,#a78bfa);
+}
+
+.small{font-size:12px;color:#858ba1}
+
+.section{display:none}
+.section.active{display:block}
+
+.note-link{
+ color:#5149d9;
+ font-weight:600;
+ font-size:12px;
+ text-decoration:none;
+}
+
+footer{
+ text-align:center;
+ padding:22px;
+ font-size:12px;
+ color:#8b90a7;
+}
+
+@media(max-width:900px){
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .content{grid-template-columns:1fr}
+}
+
+@media(max-width:600px){
+ .sidebar{
+  width:100%;
+  height:auto;
+  position:relative;
+  padding:15px;
+ }
+ .logo{margin:0 0 12px}
+ .menu-title{display:none}
+ .nav{
+  display:inline-block;
+  padding:9px;
+  font-size:11px;
+  margin:2px;
+ }
+ .layout{display:block}
+ main{margin:0;width:100%;padding:17px}
+ .welcome{padding:20px}
+ .welcome h1{font-size:20px}
+ .welcome-icon{font-size:40px}
+ .topbar h2{font-size:18px}
+ .stats{gap:10px}
+ .stat{padding:13px}
+ .stat h2{font-size:22px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<aside class="sidebar">
+ <div class="logo">🎓 <span>Campus</span> Buddy</div>
+
+ <div class="menu-title">MAIN MENU</div>
+
+ <a class="nav active" onclick="openPage('dashboard',this)">🏠 Dashboard</a>
+ <a class="nav" onclick="openPage('timetable',this)">📅 Timetable</a>
+ <a class="nav" onclick="openPage('attendance',this)">📊 Attendance</a>
+ <a class="nav" onclick="openPage('assignments',this)">📝 Assignments</a>
+ <a class="nav" onclick="openPage('notes',this)">📚 Notes Library</a>
+
+ <div class="menu-title">STUDENT ZONE</div>
+ <a class="nav" onclick="alert('Stay focused and keep learning!')">⭐ Motivation</a>
+ <a class="nav" onclick="alert('Campus Buddy - Made for Students!')">ℹ️ About Us</a>
+</aside>
+
+<main>
+
+<div class="topbar">
+ <h2 id="pageTitle">Dashboard</h2>
+ <div class="profile">👨‍🎓 Student Portal</div>
+</div>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="section active">
+
+<div class="welcome">
+ <div>
+  <h1>Hello, Student! 👋</h1>
+  <p>Welcome to your smart college dashboard.</p>
+  <p style="margin-top:15px">Learn Better. Manage Smarter.</p>
+ </div>
+ <div class="welcome-icon">🎓</div>
+</div>
+
+<div class="stats">
+ <div class="stat">
+  <div class="stat-icon">📅</div>
+  <h2 id="classCount">0</h2>
+  <p>Total Classes</p>
+ </div>
+ <div class="stat">
+  <div class="stat-icon">📊</div>
+  <h2 id="attendanceStat">0%</h2>
+  <p>Attendance</p>
+ </div>
+ <div class="stat">
+  <div class="stat-icon">📝</div>
+  <h2 id="taskCount">0</h2>
+  <p>Pending Assignments</p>
+ </div>
+ <div class="stat">
+  <div class="stat-icon">📚</div>
+  <h2 id="noteCount">0</h2>
+  <p>Study Notes</p>
+ </div>
+</div>
+
+<div class="card">
+ <h3>✨ Your Campus Companion</h3>
+ <p class="small">Manage your classes, track your attendance, complete assignments and access study notes — all in one place.</p>
+</div>
+
+</section>
+
+<!-- TIMETABLE -->
+<section id="timetable" class="section">
+ <div class="card">
+  <h3>📅 My Class Timetable</h3>
+  <input id="className" placeholder="Enter Subject Name">
+  <input id="classTime" placeholder="Enter Class Time">
+  <button onclick="addClass()">+ Add New Class</button>
+  <div id="classList"></div>
+ </div>
+</section>
+
+<!-- ATTENDANCE -->
+<section id="attendance" class="section">
+ <div class="card">
+  <h3>📊 Attendance Tracker</h3>
+  <input type="number" id="total" placeholder="Total Classes">
+  <input type="number" id="present" placeholder="Classes Attended">
+  <button onclick="calculateAttendance()">Calculate Attendance</button>
+  <h2 id="result" style="margin-top:20px">0%</h2>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <p class="small">Track your attendance percentage easily.</p>
+ </div>
+</section>
+
+<!-- ASSIGNMENTS -->
+<section id="assignments" class="section">
+ <div class="card">
+  <h3>📝 Assignment Manager</h3>
+  <input id="task" placeholder="Enter Assignment Name">
+  <button onclick="addTask()">+ Add Assignment</button>
+  <div id="taskList"></div>
+ </div>
+</section>
+
+<!-- NOTES -->
+<section id="notes" class="section">
+ <div class="card">
+  <h3>📚 Student Notes Library</h3>
+  <input id="noteTitle" placeholder="Enter Notes Title">
+  <input type="file" id="noteFile" accept=".pdf">
+  <button onclick="uploadNote()">⬆ Upload PDF</button>
+  <div id="noteList"></div>
+ </div>
+</section>
+
+<footer>
+ Campus Buddy © 2026 | Made with ❤️ for Students
+</footer>
+
+</main>
+</div>
+
+<script>
+
+// NAVIGATION
+function openPage(page,element){
+ document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+ document.getElementById(page).classList.add('active');
+
+ document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
+ element.classList.add('active');
+
+ document.getElementById('pageTitle').innerText =
+ page.charAt(0).toUpperCase()+page.slice(1);
+}
+
+// SAFE TEXT
+function safe(value){
+ return String(value).replace(/[&<>"']/g,c=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;',
+  '"':'&quot;',"'":'&#39;'
+ })[c]);
+}
+
+// TIMETABLE
+let classes=JSON.parse(localStorage.getItem('classes')||'[]');
+
+function addClass(){
+ let name=document.getElementById('className').value.trim();
+ let time=document.getElementById('classTime').value.trim();
+
+ if(!name||!time)return alert('Fill all details!');
+
+ classes.push({name,time});
+ localStorage.setItem('classes',JSON.stringify(classes));
+
+ className.value='';
+ classTime.value='';
+ showClasses();
+}
+
+function showClasses(){
+ classList.innerHTML=classes.map((c,i)=>`
+ <div class="item">
+ <span><b>${safe(c.name)}</b><br>${safe(c.time)}</span>
+ <button onclick="deleteClass(${i})">Delete</button>
+ </div>`).join('');
+
+ classCount.innerText=classes.length;
+}
+
+function deleteClass(i){
+ classes.splice(i,1);
+ localStorage.setItem('classes',JSON.stringify(classes));
+ showClasses();
+}
+
+// ATTENDANCE
+function calculateAttendance(){
+ let t=Number(total.value);
+ let p=Number(present.value);
+
+ if(!Number.isInteger(t)||t<=0||
+ !Number.isInteger(p)||p<0||p>t)
+ return alert('Enter valid attendance!');
+
+ let percent=p/t*100;
+ result.innerText=percent.toFixed(1)+'%';
+ bar.style.width=percent+'%';
+ attendanceStat.innerText=percent.toFixed(1)+'%';
+}
+
+// ASSIGNMENTS
+let tasks=JSON.parse(localStorage.getItem('tasks')||'[]');
+
+function addTask(){
+ let name=task.value.trim();
+ if(!name)return alert('Enter assignment name!');
+
+ tasks.push({name,done:false});
+ localStorage.setItem('tasks',JSON.stringify(tasks));
+ task.value='';
+ showTasks();
+}
+
+function showTasks(){
+ taskList.innerHTML=tasks.map((t,i)=>`
+ <div class="item">
+ <span>${safe(t.name)}<br>
+ <span class="small">${t.done?'Completed':'Pending'}</span></span>
+ <span>
+ <button onclick="toggleTask(${i})">${t.done?'Undo':'Done'}</button>
+ <button onclick="deleteTask(${i})">X</button>
+ </span>
+ </div>`).join('');
+
+ taskCount.innerText=tasks.filter(t=>!t.done).length;
+}
+
+function toggleTask(i){
+ tasks[i].done=!tasks[i].done;
+ localStorage.setItem('tasks',JSON.stringify(tasks));
+ showTasks();
+}
+
+function deleteTask(i){
+ tasks.splice(i,1);
+ localStorage.setItem('tasks',JSON.stringify(tasks));
+ showTasks();
+}
+
+// NOTES
+let notes=[];
+
+function uploadNote(){
+ let title=noteTitle.value.trim();
+ let file=noteFile.files[0];
+
+ if(!title||!file)return alert('Enter title and select PDF!');
+ if(file.type!=='application/pdf')return alert('PDF only!');
+
+ let url=URL.createObjectURL(file);
+ notes.push({title,url});
+
+ showNotes();
+ noteTitle.value='';
+ noteFile.value='';
+ alert('Notes added successfully!');
+}
+
+function showNotes(){
+ noteList.innerHTML=notes.map(n=>`
+ <div class="item">
+ <span>📄 ${safe(n.title)}</span>
+ <a class="note-link" href="${n.url}" download="${safe(n.title)}.pdf">Download</a>
+ </div>`).join('');
+
+ noteCount.innerText=notes.length;
+}
+
+// INITIAL DATA
+showClasses();
+showTasks();
+showNotes();
+
+</script>
+</body>
+</html>
